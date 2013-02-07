@@ -1,0 +1,18 @@
+<?php
+
+class BoardsController extends AppController {
+   
+  public $scaffold;
+	public $uses=array('Board','Friend');
+	public $helpers = array('Html');//ヘルパー
+	public $components = array('Auth');
+	function beforeFilter(){
+		parent::beforeFilter();	 //親クラスのbeforeFilterの読み込み
+		$this->Auth->allow('index','detail','search'); 
+	}
+
+	function index(){
+		$uid="";
+		$r="user_id";
+		$this->set("data",$this->pagingById($this->modelNames['0'],$uid,$r));
+	}
